@@ -19,3 +19,26 @@ animals.map(&:upcase)               # => ["CAT", "DOG", "FROG"]
 
 
 
+# From Matheus Richard, other ways to save a block to a variable
+a = proc { |animal| animal.upcase }
+b = lambda { |animal| animal.upcase }
+c = ->(animal) { animal.upcase }
+
+# From @theleastbad
+# The most significant difference between lambdas and procs is that lambdas have a stricter function signature. If you specify `->(context) { puts context }`, you can only reference that lambda with one parameter... no more, no less.
+
+# From @codefolio
+# Yeah, the syntax error happens on the "try to assign a block to a variable" line. You can grab a block that was passed into a method, though:
+
+def get_the_block(&block)
+  return block
+end
+
+upcase_block = get_the_block { |a| a.upcase }
+
+This works basically like using "proc".
+
+I say "basically" because there are some very small differences between proc and lambda. And if you have to care about them it's usually a bad sign :-)
+
+# From #jaredcwhite
+FYI, procs *can* get passed around to methods that expect an argument like that, and you can save them in arrays, hashes, etc. Just use & if/when you need to pass as a block.
