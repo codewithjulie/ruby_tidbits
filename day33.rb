@@ -1,6 +1,3 @@
-
-
-
 RSpec.describe "homepage" do
   it "sees the header" do
     expect(page).to have_css("h1", text: "Hello World!")
